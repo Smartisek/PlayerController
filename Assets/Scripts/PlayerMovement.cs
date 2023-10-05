@@ -24,6 +24,10 @@ public class PlayerMovement : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         body.velocity = new Vector2(horizontalInput* speed, body.velocity.y);
 
+        if(horizontalInput>0 && !facingRight || horizontalInput<0 && facingRight){
+            Flip();
+        }
+
         if(Input.GetKey(KeyCode.Space)){
             Jump();
         }
@@ -38,5 +42,12 @@ public class PlayerMovement : MonoBehaviour
         if(other.gameObject.CompareTag("Ground")){
             grounded = true;
         }
+    }
+
+    private void Flip(){
+        Vector3 currentScale = gameObject.transform.localScale;
+        currentScale.x*= -1;
+        gameObject.transform.localScale = currentScale;
+        facingRight = !facingRight;
     }
 }
