@@ -9,6 +9,8 @@ public class enemySpawner : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private float spawnRate = 2f;
     [SerializeField] private Transform[] spawnPoints;
+
+    [Header("Limit Settings")]
     [SerializeField] private int maxEnemies = 5;
     
     private int currentEnemies = 0;
@@ -24,7 +26,7 @@ public class enemySpawner : MonoBehaviour
     {
         if(currentEnemies >= maxEnemies) return;
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        GameObject spawnEnemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
+        GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
 
         enemyControler enemyController = spawnedEnemy.GetComponent<enemyControler>();
         enemyControler.Instantiate(this);
