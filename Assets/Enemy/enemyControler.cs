@@ -10,6 +10,7 @@ public class enemyControler : MonoBehaviour
     [SerializeField] private float groundCheckDistance = 0.6f;
     [SerializeField] private LayerMask whatIsGround;
     private bool movingRight = true;
+    private bool canChangeDirection = true;
 
     [Header("Combat Settings")]
     [SerializeField] private int maxHealth = 5;
@@ -51,6 +52,13 @@ public class enemyControler : MonoBehaviour
         enemyRigidBody.velocity = movingRight ?
         new Vector2(moveSpeed, enemyRigidBody.velocity.y):
         new Vector2(-moveSpeed, enemyRigidBody.velocity.y);
+    }
+
+    IEnumerator DelayDirectionChange()
+    {
+        canChangeDirection = false;
+        yield return new WaitForSeconds(0.5f);
+        canChangeDirection = true;
     }
 
     public void TakeDamage(int damageAmount){
