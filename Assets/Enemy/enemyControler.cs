@@ -17,7 +17,7 @@ public class enemyControler : MonoBehaviour
     [SerializeField] private int damage = 1;
 
     private Rigidbody2D enemyRigidBody;
-    // private EnemySpawner spawner;
+    private enemySpawner spawner;
 
     // Start is called before the first frame update
     void Awake()
@@ -28,10 +28,14 @@ public class enemyControler : MonoBehaviour
 
     }
 
+    public void Initialize(enemySpawner spawnerReference){
+        spawner = spawnerReference;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        Move();
     }
 
     void Move(){
@@ -41,11 +45,32 @@ public class enemyControler : MonoBehaviour
 
         bool isGrounded = Physics2D.Raycast(groundCheckPosition, Vector2.down,groundCheckDistance, whatIsGround);
 
-        if(isGrounded){
+        if(!isGrounded){
             movingRight = !movingRight;
         }
         enemyRigidBody.velocity = movingRight ?
         new Vector2(moveSpeed, enemyRigidBody.velocity.y):
-        new Vector2(moveSpeed, enemyRigidBody.velocity.y);
+        new Vector2(-moveSpeed, enemyRigidBody.velocity.y);
+    }
+
+    public void TakeDamage(int damageAmount){
+        currentHealth -= damageAmount;
+        if(currentHealth <=0){
+            Die();
+        }
+    }
+
+    public void Die(){
+        if(spawner !=null){
+            spawner.EnemyDied();
+        }
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision){
+        AdvancedPlayerMovement player = collision.gameObject.GetComponent<AdvancedPlayerMovement>();
+        if(player !=null){
+            Debug.Log("Player took hit");
+        }
     }
 }

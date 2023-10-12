@@ -18,19 +18,23 @@ public class enemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        InvokeRepeating("SpawnEnemy", spawnRate, spawnRate);
+            }
 
     // Update is called once per frame
-    void SpawnEnemy()
+     void SpawnEnemy()
     {
-        if(currentEnemies >= maxEnemies) return;
+        if(currentEnemies >= maxEnemies) return; 
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
-
+    
         enemyControler enemyController = spawnedEnemy.GetComponent<enemyControler>();
-        enemyControler.Instantiate(this);
+        enemyController.Initialize(this);
 
         currentEnemies++;
+    }
+
+    public void EnemyDied(){
+        currentEnemies--;
     }
 }
