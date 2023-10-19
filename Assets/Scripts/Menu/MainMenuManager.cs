@@ -10,9 +10,13 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private String optionsSceneName = "OptionsScene";
 
     // Start is called before the first frame update
-    void Start()
+    public void StartGame()
     {
-        
+        SceneManager.LoadScene(gameSceneName);
+    }
+
+    public void OpenSettings(){
+        SceneManager.LoadScene(optionsSceneName);
     }
 
     // Update is called once per frame
