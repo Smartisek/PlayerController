@@ -17,11 +17,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenSettings(){
         SceneManager.LoadScene(optionsSceneName);
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void QuitGame(){
+        Application.Quit();
     }
 }
