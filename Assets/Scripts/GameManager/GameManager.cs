@@ -33,6 +33,13 @@ public class GameManager : MonoBehaviour
                 PauseGame();
             }
         }
+        if(Input.GetKeyDown(KeyCode.R)){
+            RestartGame();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            LoadMainMenu();
+        }
     }
 
     public void PauseGame(){
@@ -53,7 +60,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void RestartGame(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void LoadMainMenu(){
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("OptionScene");
     }
 }
